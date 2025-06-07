@@ -289,84 +289,83 @@
     </div>
 
     <script>
-        // Configuration - Your Google Apps Script Web App URL
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyOjYA6QsW_HO_bpmeLpTEa7RrGL3wGPYe6Lpj4Q1KaOyCVyukQP-k-XETtCBDVZjyzGg/exec';
-        
-        // Global variables
-        let currentUser = null;
-        let isLoginMode = false;
-        let lastSpinTime = null;
+       // Configuration - Your Google Apps Script Web App URL
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyOjYA6QsW_HO_bpmeLpTEa7RrGL3wGPYe6Lpj4Q1KaOyCVyukQP-k-XETtCBDVZjyzGg/exec';
 
-        // Initialize the app
-        function init() {
-            const savedUser = getCookie('currentUser');
-            if (savedUser) {
-                try {
-                    currentUser = JSON.parse(savedUser);
-                    showGameContainer();
-                } catch (e) {
-                    showAuthContainer();
-                }
-            } else {
-                showAuthContainer();
-            }
+// Global variables
+let currentUser = null;
+let isLoginMode = false;
+let lastSpinTime = null;
+
+// Initialize the app
+function init() {
+    const savedUser = getCookie('currentUser');
+    if (savedUser) {
+        try {
+            currentUser = JSON.parse(savedUser);
+            showGameContainer();
+        } catch (e) {
+            showAuthContainer();
         }
+    } else {
+        showAuthContainer();
+    }
+}
 
-        // Cookie functions
-        function setCookie(name, value, days = 365) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-        }
+// Cookie functions
+function setCookie(name, value, days = 365) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
 
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
-        // Show authentication container
-        function showAuthContainer() {
-            document.getElementById('authContainer').style.display = 'block';
-            document.getElementById('gameContainer').style.display = 'none';
-        }
+// Show authentication container
+function showAuthContainer() {
+    document.getElementById('authContainer').style.display = 'block';
+    document.getElementById('gameContainer').style.display = 'none';
+}
 
-        // Show game container
-        function showGameContainer() {
-            document.getElementById('authContainer').style.display = 'none';
-            document.getElementById('gameContainer').style.display = 'block';
-            document.getElementById('welcomeUser').textContent = currentUser.name;
-            document.getElementById('totalVisits').textContent = currentUser.visits;
-            document.getElementById('totalRewards').textContent = currentUser.rewards.length;
-            updateNextSpinInfo();
-        }
+// Show game container
+function showGameContainer() {
+    document.getElementById('authContainer').style.display = 'none';
+    document.getElementById('gameContainer').style.display = 'block';
+    document.getElementById('welcomeUser').textContent = currentUser.name;
+    document.getElementById('totalVisits').textContent = currentUser.visits;
+    document.getElementById('totalRewards').textContent = currentUser.rewards.length;
+    updateNextSpinInfo();
+}
 
-        // Toggle between login and signup
-        document.getElementById('toggleAuth').addEventListener('click', function(e) {
-            e.preventDefault();
-            isLoginMode = !isLoginMode;
-            if (isLoginMode) {
-                document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
-                document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
-                document.getElementById('toggleAuth').textContent = 'Sign up here';
-                document.getElementById('name').style.display = 'none';
-                document.getElementById('phoneGroup').style.display = 'none';
-            } else {
-                document.getElementById('authTitle').textContent = 'Welcome! Please Sign Up';
-                document.getElementById('authBtnText').textContent = 'Sign Up & Start Spinning!';
-                document.getElementById('toggleAuth').textContent = 'Login here';
-                document.getElementById('name').style.display = 'block';
-                document.getElementById('phoneGroup').style.display = 'block';
-            }
-        });
+// Toggle between login and signup
+document.getElementById('toggleAuth').addEventListener('click', function(e) {
+    e.preventDefault();
+    isLoginMode = !isLoginMode;
+    if (isLoginMode) {
+        document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
+        document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
+        document.getElementById('toggleAuth').textContent = 'Sign up here';
+        document.getElementById('name').style.display = 'none';
+        document.getElementById('phoneGroup').style.display = 'none';
+    } else {
+        document.getElementById('authTitle').textContent = 'Welcome! Please Sign Up';
+        document.getElementById('authBtnText').textContent = 'Sign Up & Start Spinning!';
+        document.getElementById('toggleAuth').textContent = 'Login here';
+        document.getElementById('name').style.display = 'block';
+        document.getElementById('phoneGroup').style.display = 'block';
+    }
+});
 
-        // Handle authentication
-      // Handle authentication
+// Handle authentication
 document.getElementById('authForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -416,7 +415,6 @@ function makeJSONPRequest(data) {
         const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
         
         window[callbackName] = function(response) {
-            // FIX: Accept both object and stringified JSON
             try {
                 if (typeof response === 'string') {
                     response = JSON.parse(response);
@@ -432,8 +430,6 @@ function makeJSONPRequest(data) {
         
         const script = document.createElement('script');
         const params = new URLSearchParams();
-        
-        // Add all data as URL parameters
         for (const key in data) {
             params.append(key, data[key]);
         }
@@ -450,146 +446,142 @@ function makeJSONPRequest(data) {
     });
 }
 
-        // Determine available rewards based on time logic
-        function getAvailableRewards() {
-            const now = new Date().getTime();
-            const rewards = currentUser.rewards || [];
-            
-            // First time user gets a or b
-            if (rewards.length === 0) {
-                return ['a', 'b']; // Free beverage or free snack
-            }
-            
-            // Get last spin time
-            const lastReward = rewards[rewards.length - 1];
-            const lastSpinTime = new Date(lastReward.date).getTime();
-            const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+// Determine available rewards based on time logic
+function getAvailableRewards() {
+    const now = new Date().getTime();
+    const rewards = currentUser.rewards || [];
+    
+    // First time user gets a or b
+    if (rewards.length === 0) {
+        return ['a', 'b']; // Free beverage or free snack
+    }
+    
+    // Get last spin time
+    const lastReward = rewards[rewards.length - 1];
+    const lastSpinTime = new Date(lastReward.date).getTime();
+    const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
 
-            // Time-based logic
-            if (daysSinceLastSpin < 2) {
-                return ['d']; // Better luck next time
-            } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
-                return ['a', 'b']; // Free beverage or free snack
-            } else if (daysSinceLastSpin >= 7) {
-                return ['c']; // 10% off
-            }
-            
-            return ['d']; // Default fallback
-        }
+    // Time-based logic for rewards
+    if (daysSinceLastSpin < 2) {
+        return ['d']; // Only "Better luck next time"
+    } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
+        return ['a', 'b', 'd']; // Free beverage, snack, or "better luck"
+    } else {
+        return ['a', 'b', 'c', 'd']; // All rewards available
+    }
+}
 
-        // Spin wheel function
-        async function spinWheel() {
-            const spinBtn = document.getElementById('spinBtn');
-            const wheel = document.getElementById('wheel');
-            const result = document.getElementById('result');
-            
-            spinBtn.disabled = true;
-            spinBtn.textContent = 'Spinning...';
-            
-            const availableRewards = getAvailableRewards();
-            const selectedReward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
-            
-            // Calculate rotation based on selected reward
-            let targetRotation;
-            switch(selectedReward) {
-                case 'a': targetRotation = 315; break; // Free beverage
-                case 'b': targetRotation = 45; break;  // Free snack
-                case 'c': targetRotation = 135; break; // 10% off
-                case 'd': targetRotation = 225; break; // Better luck
-            }
-            
-            // Add multiple full rotations for effect
-            const fullRotations = 1440; // 4 full rotations
-            const finalRotation = fullRotations + targetRotation;
-            
-            wheel.style.transform = `rotate(${finalRotation}deg)`;
-            
-            setTimeout(async () => {
-                try {
-                    // Send reward to backend
-                    const rewardNames = {
-                        'a': 'Free Beverage of the Day',
-                        'b': 'Free Snack of the Day',
-                        'c': '10% Off on Bill',
-                        'd': 'Better Luck Next Time'
-                    };
+// Spin wheel function
+async function spinWheel() {
+    const spinBtn = document.getElementById('spinBtn');
+    const wheel = document.getElementById('wheel');
+    const result = document.getElementById('result');
+    
+    spinBtn.disabled = true;
+    spinBtn.textContent = 'Spinning...';
+    
+    const availableRewards = getAvailableRewards();
+    const selectedReward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
+    
+    // Calculate rotation based on selected reward
+    let targetRotation;
+    switch(selectedReward) {
+        case 'a': targetRotation = 315; break; // Free beverage
+        case 'b': targetRotation = 45; break;  // Free snack
+        case 'c': targetRotation = 135; break; // 10% off
+        case 'd': targetRotation = 225; break; // Better luck
+        default: targetRotation = 0;
+    }
+    
+    // Add multiple full rotations for effect
+    const fullRotations = 1440; // 4 full rotations
+    const finalRotation = fullRotations + targetRotation;
+    
+    wheel.style.transform = `rotate(${finalRotation}deg)`;
+    
+    setTimeout(async () => {
+        try {
+            // Send reward to backend
+            const rewardNames = {
+                'a': 'Free Beverage of the Day',
+                'b': 'Free Snack of the Day',
+                'c': '10% Off on Bill',
+                'd': 'Better Luck Next Time'
+            };
 
-                  const response = await makeJSONPRequest({
-    action: 'addReward',
-    email: currentUser.email,
-    reward: rewardNames[selectedReward]
-});
+            const response = await makeJSONPRequest({
+                action: 'addReward',
+                email: currentUser.email,
+                reward: rewardNames[selectedReward]
+            });
 
-                    const backendResult = await response.json();
-                    
-                    if (backendResult.result === 'success') {
-                        // Update local user data
-                        currentUser.rewards = backendResult.data.rewards;
-                        setCookie('currentUser', JSON.stringify(currentUser));
-                        
-                        // Update UI
-                        document.getElementById('totalRewards').textContent = currentUser.rewards.length;
-                    }
-
-                    // Show result
-                    const rewards = {
-                        'a': '🥤 Congratulations! You won a FREE BEVERAGE OF THE DAY!',
-                        'b': '🍿 Congratulations! You won a FREE SNACK OF THE DAY!',
-                        'c': '💰 Amazing! You got 10% OFF ON YOUR BILL!',
-                        'd': '😔 Better luck next time! Come back in 2 days for another chance!'
-                    };
-                    
-                    result.innerHTML = rewards[selectedReward];
-                    result.style.background = selectedReward === 'd' ? 
-                        'rgba(255, 107, 107, 0.2)' : 'rgba(76, 175, 80, 0.2)';
-                    
-                    updateNextSpinInfo();
-                } catch (error) {
-                    result.innerHTML = '❌ Error saving reward. Please try again.';
-                    result.style.background = 'rgba(255, 107, 107, 0.2)';
-                }
+            // No .json() needed!
+            if (response.result === 'success') {
+                // Update local user data
+                currentUser.rewards = response.data.rewards;
+                setCookie('currentUser', JSON.stringify(currentUser));
                 
-                spinBtn.disabled = false;
-                spinBtn.textContent = '🎲 SPIN AGAIN!';
-            }, 4000);
-        }
-
-        // Update next spin information
-        function updateNextSpinInfo() {
-            const nextSpinInfo = document.getElementById('nextSpinInfo');
-            const rewards = currentUser.rewards || [];
-            
-            if (rewards.length === 0) {
-                nextSpinInfo.innerHTML = '🎉 First spin available! You\'re guaranteed a great reward!';
-                return;
+                // Update UI
+                document.getElementById('totalRewards').textContent = currentUser.rewards.length;
             }
-            
-            const now = new Date().getTime();
-            const lastReward = rewards[rewards.length - 1];
-            const lastSpinTime = new Date(lastReward.date).getTime();
-            const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
-            
-            if (daysSinceLastSpin < 2) {
-                const hoursLeft = Math.ceil((2 * 24) - (daysSinceLastSpin * 24));
-                nextSpinInfo.innerHTML = `⏰ Come back in ${hoursLeft} hours for better rewards!`;
-            } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
-                nextSpinInfo.innerHTML = '🎁 Great timing! You can win free beverages or snacks!';
-            } else {
-                nextSpinInfo.innerHTML = '💎 Perfect! You\'re eligible for the premium 10% discount!';
-            }
-        }
 
-        // Logout function
-        function logout() {
-            setCookie('currentUser', '', -1);
-            currentUser = null;
-            showAuthContainer();
-            // Reset form
-            document.getElementById('authForm').reset();
+            // Show result
+            const rewards = {
+                'a': '🥤 Congratulations! You won a FREE BEVERAGE OF THE DAY!',
+                'b': '🍿 Congratulations! You won a FREE SNACK OF THE DAY!',
+                'c': '💰 Amazing! You got 10% OFF ON YOUR BILL!',
+                'd': '😔 Better luck next time! Come back in 2 days for another chance!'
+            };
+            
+            result.innerHTML = rewards[selectedReward];
+            result.style.background = selectedReward === 'd' ? 
+                'rgba(255, 107, 107, 0.2)' : 'rgba(76, 175, 80, 0.2)';
+            
+            updateNextSpinInfo();
+        } catch (error) {
+            result.innerHTML = '❌ Error saving reward. Please try again.';
+            result.style.background = 'rgba(255, 107, 107, 0.2)';
         }
+        
+        spinBtn.disabled = false;
+        spinBtn.textContent = '🎲 SPIN AGAIN!';
+    }, 4000);
+}
 
-        // Initialize the application
-        init();
-    </script>
+// Update next spin information
+function updateNextSpinInfo() {
+    const nextSpinInfo = document.getElementById('nextSpinInfo');
+    const rewards = currentUser.rewards || [];
+    
+    if (rewards.length === 0) {
+        nextSpinInfo.innerHTML = '🎉 First spin available! You\'re guaranteed a great reward!';
+        return;
+    }
+    
+    const now = new Date().getTime();
+    const lastReward = rewards[rewards.length - 1];
+    const lastSpinTime = new Date(lastReward.date).getTime();
+    const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+    
+    if (daysSinceLastSpin < 2) {
+        const hoursLeft = Math.ceil((2 * 24) - (daysSinceLastSpin * 24));
+        nextSpinInfo.innerHTML = `⏰ Come back in ${hoursLeft} hours for better rewards!`;
+    } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
+        nextSpinInfo.innerHTML = '🎁 Great timing! You can win free beverages or snacks!';
+    } else {
+        nextSpinInfo.innerHTML = '💎 Perfect! You\'re eligible for the premium 10% discount!';
+    }
+}
+
+// Logout function
+function logout() {
+    setCookie('currentUser', '', -1);
+    currentUser = null;
+    showAuthContainer();
+}
+
+// Initialize app on load
+window.onload = init;
+ </script>
 </body>
 </html>
