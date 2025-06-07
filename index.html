@@ -294,7 +294,7 @@ const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyOjYA6QsW_HO_bpmeLp
 
 // Global variables
 let currentUser = null;
-let isLoginMode = true;
+let isLoginMode = false;
 let lastSpinTime = null;
 
 // Initialize the app
@@ -350,6 +350,13 @@ function showGameContainer() {
 document.getElementById('toggleAuth').addEventListener('click', function(e) {
     e.preventDefault();
     isLoginMode = !isLoginMode;
+    
+    // Clear any previous errors
+    document.getElementById('authError').style.display = 'none';
+    
+    // Reset form fields
+    document.getElementById('authForm').reset();
+    
     if (isLoginMode) {
         document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
         document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
@@ -365,7 +372,7 @@ document.getElementById('toggleAuth').addEventListener('click', function(e) {
     }
 });
 
-// Handle authentication
+// Handle authentication (updated to properly handle both modes)
 document.getElementById('authForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -383,11 +390,15 @@ document.getElementById('authForm').addEventListener('submit', async function(e)
     try {
         const formData = {
             action: isLoginMode ? 'login' : 'register',
-            name: document.getElementById('name').value,
             email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
             password: document.getElementById('password').value
         };
+
+        // Only include these fields for registration
+        if (!isLoginMode) {
+            formData.name = document.getElementById('name').value;
+            formData.phone = document.getElementById('phone').value;
+        }
 
         const response = await makeJSONPRequest(formData);
 
@@ -408,7 +419,6 @@ document.getElementById('authForm').addEventListener('submit', async function(e)
         authLoader.style.display = 'none';
     }
 });
-
 // JSONP request function to avoid CORS
 function makeJSONPRequest(data) {
     return new Promise((resolve, reject) => {
