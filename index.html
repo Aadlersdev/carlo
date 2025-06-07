@@ -366,79 +366,89 @@
         });
 
         // Handle authentication
-        document.getElementById('authForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const authBtn = document.getElementById('authBtn');
-            const authBtnText = document.getElementById('authBtnText');
-            const authLoader = document.getElementById('authLoader');
-            const authError = document.getElementById('authError');
-            
-            // Show loading state
-            authBtn.disabled = true;
-            authBtnText.style.display = 'none';
-            authLoader.style.display = 'inline-block';
-            authError.style.display = 'none';
+      // Handle authentication
+document.getElementById('authForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const authBtn = document.getElementById('authBtn');
+    const authBtnText = document.getElementById('authBtnText');
+    const authLoader = document.getElementById('authLoader');
+    const authError = document.getElementById('authError');
+    
+    // Show loading state
+    authBtn.disabled = true;
+    authBtnText.style.display = 'none';
+    authLoader.style.display = 'inline-block';
+    authError.style.display = 'none';
 
-            try {
-                const formData = {
-                    action: isLoginMode ? 'login' : 'register',
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    password: document.getElementById('password').value
-                };
+    try {
+        const formData = {
+            action: isLoginMode ? 'login' : 'register',
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            password: document.getElementById('password').value
+        };
 
-                const response = await makeJSONPRequest(formData);
+        const response = await makeJSONPRequest(formData);
 
-                if (response.result === 'success') {
-                    currentUser = response.data.user;
-                    setCookie('currentUser', JSON.stringify(currentUser));
-                    showGameContainer();
-                } else {
-                    throw new Error(response.message);
-                }
-            } catch (error) {
-                authError.textContent = error.message || 'An error occurred. Please try again.';
-                authError.style.display = 'block';
-            } finally {
-                // Reset loading state
-                authBtn.disabled = false;
-                authBtnText.style.display = 'inline-block';
-                authLoader.style.display = 'none';
-            }
-        });
-
-        // JSONP request function to avoid CORS
-        function makeJSONPRequest(data) {
-            return new Promise((resolve, reject) => {
-                const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
-                
-                window[callbackName] = function(response) {
-                    document.head.removeChild(script);
-                    delete window[callbackName];
-                    resolve(response);
-                };
-                
-                const script = document.createElement('script');
-                const params = new URLSearchParams();
-                
-                // Add all data as URL parameters
-                for (const key in data) {
-                    params.append(key, data[key]);
-                }
-                params.append('callback', callbackName);
-                
-                script.src = WEBAPP_URL + '?' + params.toString();
-                script.onerror = function() {
-                    document.head.removeChild(script);
-                    delete window[callbackName];
-                    reject(new Error('Request failed'));
-                };
-                
-                document.head.appendChild(script);
-            });
+        if (response.result === 'success') {
+            currentUser = response.data.user;
+            setCookie('currentUser', JSON.stringify(currentUser));
+            showGameContainer();
+        } else {
+            throw new Error(response.message);
         }
+    } catch (error) {
+        authError.textContent = error.message || 'An error occurred. Please try again.';
+        authError.style.display = 'block';
+    } finally {
+        // Reset loading state
+        authBtn.disabled = false;
+        authBtnText.style.display = 'inline-block';
+        authLoader.style.display = 'none';
+    }
+});
+
+// JSONP request function to avoid CORS
+function makeJSONPRequest(data) {
+    return new Promise((resolve, reject) => {
+        const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
+        
+        window[callbackName] = function(response) {
+            // FIX: Accept both object and stringified JSON
+            try {
+                if (typeof response === 'string') {
+                    response = JSON.parse(response);
+                }
+                resolve(response);
+            } catch (err) {
+                reject(new Error('Invalid server response'));
+            } finally {
+                document.head.removeChild(script);
+                delete window[callbackName];
+            }
+        };
+        
+        const script = document.createElement('script');
+        const params = new URLSearchParams();
+        
+        // Add all data as URL parameters
+        for (const key in data) {
+            params.append(key, data[key]);
+        }
+        params.append('callback', callbackName);
+        
+        script.src = WEBAPP_URL + '?' + params.toString();
+        script.onerror = function() {
+            document.head.removeChild(script);
+            delete window[callbackName];
+            reject(new Error('Request failed'));
+        };
+        
+        document.head.appendChild(script);
+    });
+}
 
         // Determine available rewards based on time logic
         function getAvailableRewards() {
