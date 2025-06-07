@@ -289,8 +289,8 @@
     </div>
 
     <script>
-        // Configuration - Replace with your Google Apps Script Web App URL
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzcWseG4SttmCzgcdJ_c7xDJOykjim4ha3t-MyOHX90rNj0_OZxBM0vgHAulClmyY7n8A/exec';
+        // Configuration - Your Google Apps Script Web App URL
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbz_D4MfcyCtwrG_8jrYa3CP4MABWCPnezm221nLM_sc_vs3BOELsM3Mq04JSaF4h2psNA/exec';
         
         // Global variables
         let currentUser = null;
@@ -389,22 +389,14 @@
                     password: document.getElementById('password').value
                 };
 
-                const response = await fetch(WEBAPP_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
+                const response = await makeJSONPRequest(formData);
 
-                const result = await response.json();
-
-                if (result.result === 'success') {
-                    currentUser = result.data.user;
+                if (response.result === 'success') {
+                    currentUser = response.data.user;
                     setCookie('currentUser', JSON.stringify(currentUser));
                     showGameContainer();
                 } else {
-                    throw new Error(result.message);
+                    throw new Error(response.message);
                 }
             } catch (error) {
                 authError.textContent = error.message || 'An error occurred. Please try again.';
@@ -416,6 +408,37 @@
                 authLoader.style.display = 'none';
             }
         });
+
+        // JSONP request function to avoid CORS
+        function makeJSONPRequest(data) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
+                
+                window[callbackName] = function(response) {
+                    document.head.removeChild(script);
+                    delete window[callbackName];
+                    resolve(response);
+                };
+                
+                const script = document.createElement('script');
+                const params = new URLSearchParams();
+                
+                // Add all data as URL parameters
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+                params.append('callback', callbackName);
+                
+                script.src = WEBAPP_URL + '?' + params.toString();
+                script.onerror = function() {
+                    document.head.removeChild(script);
+                    delete window[callbackName];
+                    reject(new Error('Request failed'));
+                };
+                
+                document.head.appendChild(script);
+            });
+        }
 
         // Determine available rewards based on time logic
         function getAvailableRewards() {
