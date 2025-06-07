@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Spin - Win Amazing Rewards!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            font-size: 16px;
+            color: #333;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .game-container {
+            display: none;
+        }
+
+        .wheel-container {
+            position: relative;
+            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .section-1 {
+            background: #ff6b6b;
+            transform: rotate(0deg);
+        }
+
+        .section-2 {
+            background: #4ecdc4;
+            transform: rotate(90deg);
+        }
+
+        .section-3 {
+            background: #45b7d1;
+            transform: rotate(180deg);
+        }
+
+        .section-4 {
+            background: #96ceb4;
+            transform: rotate(270deg);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #fff;
+            z-index: 10;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .user-stats {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spin-btn {
+            margin-top: 20px;
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .next-spin-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🎰 Lucky Spin</h1>
+        
+        <!-- Authentication Form -->
+        <div id="authContainer" class="auth-container">
+            <h2 id="authTitle">Welcome! Please Sign Up</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group" id="phoneGroup">
+                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn" id="authBtn">
+                    <span id="authBtnText">Sign Up & Start Spinning!</span>
+                    <span id="authLoader" class="loading" style="display: none;"></span>
+                </button>
+            </form>
+            <p style="margin-top: 15px; font-size: 14px;">
+                Already have an account? <a href="#" id="toggleAuth" style="color: #ffd93d;">Login here</a>
+            </p>
+            <div id="authError" class="error" style="display: none;"></div>
+        </div>
+
+        <!-- Game Container -->
+        <div id="gameContainer" class="game-container">
+            <div class="user-info">
+                Welcome back, <span id="welcomeUser"></span>!
+                <button class="btn logout-btn" onclick="logout()">Logout</button>
+            </div>
+            
+            <div class="user-stats">
+                <div>🎯 Total Visits: <span id="totalVisits">0</span></div>
+                <div>🏆 Total Rewards: <span id="totalRewards">0</span></div>
+            </div>
+            
+            <div class="wheel-container">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-section section-1">FREE<br>BEVERAGE</div>
+                    <div class="wheel-section section-2">FREE<br>SNACK</div>
+                    <div class="wheel-section section-3">10% OFF<br>BILL</div>
+                    <div class="wheel-section section-4">BETTER<br>LUCK<br>NEXT TIME</div>
+                </div>
+            </div>
+            
+            <button class="btn spin-btn" id="spinBtn" onclick="spinWheel()">🎲 SPIN THE WHEEL!</button>
+            
+            <div class="result" id="result">
+                Click the wheel to discover your reward!
+            </div>
+
+            <div class="next-spin-info" id="nextSpinInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - Replace with your Google Apps Script Web App URL
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzcWseG4SttmCzgcdJ_c7xDJOykjim4ha3t-MyOHX90rNj0_OZxBM0vgHAulClmyY7n8A/exec';
+        
+        // Global variables
+        let currentUser = null;
+        let isLoginMode = false;
+        let lastSpinTime = null;
+
+        // Initialize the app
+        function init() {
+            const savedUser = getCookie('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    showGameContainer();
+                } catch (e) {
+                    showAuthContainer();
+                }
+            } else {
+                showAuthContainer();
+            }
+        }
+
+        // Cookie functions
+        function setCookie(name, value, days = 365) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Show authentication container
+        function showAuthContainer() {
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('gameContainer').style.display = 'none';
+        }
+
+        // Show game container
+        function showGameContainer() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'block';
+            document.getElementById('welcomeUser').textContent = currentUser.name;
+            document.getElementById('totalVisits').textContent = currentUser.visits;
+            document.getElementById('totalRewards').textContent = currentUser.rewards.length;
+            updateNextSpinInfo();
+        }
+
+        // Toggle between login and signup
+        document.getElementById('toggleAuth').addEventListener('click', function(e) {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            if (isLoginMode) {
+                document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
+                document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
+                document.getElementById('toggleAuth').textContent = 'Sign up here';
+                document.getElementById('name').style.display = 'none';
+                document.getElementById('phoneGroup').style.display = 'none';
+            } else {
+                document.getElementById('authTitle').textContent = 'Welcome! Please Sign Up';
+                document.getElementById('authBtnText').textContent = 'Sign Up & Start Spinning!';
+                document.getElementById('toggleAuth').textContent = 'Login here';
+                document.getElementById('name').style.display = 'block';
+                document.getElementById('phoneGroup').style.display = 'block';
+            }
+        });
+
+        // Handle authentication
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const authBtn = document.getElementById('authBtn');
+            const authBtnText = document.getElementById('authBtnText');
+            const authLoader = document.getElementById('authLoader');
+            const authError = document.getElementById('authError');
+            
+            // Show loading state
+            authBtn.disabled = true;
+            authBtnText.style.display = 'none';
+            authLoader.style.display = 'inline-block';
+            authError.style.display = 'none';
+
+            try {
+                const formData = {
+                    action: isLoginMode ? 'login' : 'register',
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    password: document.getElementById('password').value
+                };
+
+                const response = await fetch(WEBAPP_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.result === 'success') {
+                    currentUser = result.data.user;
+                    setCookie('currentUser', JSON.stringify(currentUser));
+                    showGameContainer();
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                authError.textContent = error.message || 'An error occurred. Please try again.';
+                authError.style.display = 'block';
+            } finally {
+                // Reset loading state
+                authBtn.disabled = false;
+                authBtnText.style.display = 'inline-block';
+                authLoader.style.display = 'none';
+            }
+        });
+
+        // Determine available rewards based on time logic
+        function getAvailableRewards() {
+            const now = new Date().getTime();
+            const rewards = currentUser.rewards || [];
+            
+            // First time user gets a or b
+            if (rewards.length === 0) {
+                return ['a', 'b']; // Free beverage or free snack
+            }
+            
+            // Get last spin time
+            const lastReward = rewards[rewards.length - 1];
+            const lastSpinTime = new Date(lastReward.date).getTime();
+            const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+
+            // Time-based logic
+            if (daysSinceLastSpin < 2) {
+                return ['d']; // Better luck next time
+            } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
+                return ['a', 'b']; // Free beverage or free snack
+            } else if (daysSinceLastSpin >= 7) {
+                return ['c']; // 10% off
+            }
+            
+            return ['d']; // Default fallback
+        }
+
+        // Spin wheel function
+        async function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const result = document.getElementById('result');
+            
+            spinBtn.disabled = true;
+            spinBtn.textContent = 'Spinning...';
+            
+            const availableRewards = getAvailableRewards();
+            const selectedReward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
+            
+            // Calculate rotation based on selected reward
+            let targetRotation;
+            switch(selectedReward) {
+                case 'a': targetRotation = 315; break; // Free beverage
+                case 'b': targetRotation = 45; break;  // Free snack
+                case 'c': targetRotation = 135; break; // 10% off
+                case 'd': targetRotation = 225; break; // Better luck
+            }
+            
+            // Add multiple full rotations for effect
+            const fullRotations = 1440; // 4 full rotations
+            const finalRotation = fullRotations + targetRotation;
+            
+            wheel.style.transform = `rotate(${finalRotation}deg)`;
+            
+            setTimeout(async () => {
+                try {
+                    // Send reward to backend
+                    const rewardNames = {
+                        'a': 'Free Beverage of the Day',
+                        'b': 'Free Snack of the Day',
+                        'c': '10% Off on Bill',
+                        'd': 'Better Luck Next Time'
+                    };
+
+                    const response = await fetch(WEBAPP_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'addReward',
+                            email: currentUser.email,
+                            reward: rewardNames[selectedReward]
+                        })
+                    });
+
+                    const backendResult = await response.json();
+                    
+                    if (backendResult.result === 'success') {
+                        // Update local user data
+                        currentUser.rewards = backendResult.data.rewards;
+                        setCookie('currentUser', JSON.stringify(currentUser));
+                        
+                        // Update UI
+                        document.getElementById('totalRewards').textContent = currentUser.rewards.length;
+                    }
+
+                    // Show result
+                    const rewards = {
+                        'a': '🥤 Congratulations! You won a FREE BEVERAGE OF THE DAY!',
+                        'b': '🍿 Congratulations! You won a FREE SNACK OF THE DAY!',
+                        'c': '💰 Amazing! You got 10% OFF ON YOUR BILL!',
+                        'd': '😔 Better luck next time! Come back in 2 days for another chance!'
+                    };
+                    
+                    result.innerHTML = rewards[selectedReward];
+                    result.style.background = selectedReward === 'd' ? 
+                        'rgba(255, 107, 107, 0.2)' : 'rgba(76, 175, 80, 0.2)';
+                    
+                    updateNextSpinInfo();
+                } catch (error) {
+                    result.innerHTML = '❌ Error saving reward. Please try again.';
+                    result.style.background = 'rgba(255, 107, 107, 0.2)';
+                }
+                
+                spinBtn.disabled = false;
+                spinBtn.textContent = '🎲 SPIN AGAIN!';
+            }, 4000);
+        }
+
+        // Update next spin information
+        function updateNextSpinInfo() {
+            const nextSpinInfo = document.getElementById('nextSpinInfo');
+            const rewards = currentUser.rewards || [];
+            
+            if (rewards.length === 0) {
+                nextSpinInfo.innerHTML = '🎉 First spin available! You\'re guaranteed a great reward!';
+                return;
+            }
+            
+            const now = new Date().getTime();
+            const lastReward = rewards[rewards.length - 1];
+            const lastSpinTime = new Date(lastReward.date).getTime();
+            const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+            
+            if (daysSinceLastSpin < 2) {
+                const hoursLeft = Math.ceil((2 * 24) - (daysSinceLastSpin * 24));
+                nextSpinInfo.innerHTML = `⏰ Come back in ${hoursLeft} hours for better rewards!`;
+            } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
+                nextSpinInfo.innerHTML = '🎁 Great timing! You can win free beverages or snacks!';
+            } else {
+                nextSpinInfo.innerHTML = '💎 Perfect! You\'re eligible for the premium 10% discount!';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            setCookie('currentUser', '', -1);
+            currentUser = null;
+            showAuthContainer();
+            // Reset form
+            document.getElementById('authForm').reset();
+        }
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
