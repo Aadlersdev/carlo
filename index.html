@@ -504,17 +504,11 @@
                         'd': 'Better Luck Next Time'
                     };
 
-                    const response = await fetch(WEBAPP_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            action: 'addReward',
-                            email: currentUser.email,
-                            reward: rewardNames[selectedReward]
-                        })
-                    });
+                  const response = await makeJSONPRequest({
+    action: 'addReward',
+    email: currentUser.email,
+    reward: rewardNames[selectedReward]
+});
 
                     const backendResult = await response.json();
                     
