@@ -544,9 +544,9 @@ function getAvailableRewards() {
     if (daysSinceLastSpin < 2) {
         return ['d']; // Only "Better luck next time"
     } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
-        return ['a', 'b', 'd']; // Free beverage, snack, or "better luck"
+        return ['a', 'b']; // Free beverage, snack
     } else {
-        return ['a', 'b', 'c', 'd']; // All rewards available
+        return ['a', 'b', 'c']; // All rewards available
     }
 }
 
@@ -609,7 +609,7 @@ async function spinWheel() {
                 'a': '🥤 Congratulations! You won a FREE BEVERAGE OF THE DAY!',
                 'b': '🍿 Congratulations! You won a FREE SNACK OF THE DAY!',
                 'c': '💰 Amazing! You got 10% OFF ON YOUR BILL!',
-                'd': '😔 Better luck next time! better luck next time!'
+                'd': '😔 Better luck next time!!'
             };
             
             result.innerHTML = rewards[selectedReward];
