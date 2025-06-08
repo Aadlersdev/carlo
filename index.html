@@ -3,8 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlo Drive In Wheel Spin - Win Amazing Rewards!</title>
+    <title>Carlo Drive-In | Lucky Wheel Spin - Win Amazing Rewards!</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Spin the wheel at Carlo Drive-In and win amazing rewards! Free beverages, snacks, discounts and more. Join our loyalty program today!">
+    <meta name="keywords" content="Carlo Drive-In, wheel spin, rewards, free food, drive-in restaurant, loyalty program">
+    <meta name="author" content="Carlo Drive-In">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carlodriveinn.com/">
+    <meta property="og:title" content="Carlo Drive-In | Lucky Wheel Spin - Win Amazing Rewards!">
+    <meta property="og:description" content="Spin the wheel at Carlo Drive-In and win amazing rewards! Free beverages, snacks, discounts and more. Join our loyalty program today!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yourusername/yourrepo/main/Carlo Logo - JPEGS-02.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Carlo Drive-In">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://carlodriveinn.com/">
+    <meta property="twitter:title" content="Carlo Drive-In | Lucky Wheel Spin - Win Amazing Rewards!">
+    <meta property="twitter:description" content="Spin the wheel at Carlo Drive-In and win amazing rewards! Free beverages, snacks, discounts and more. Join our loyalty program today!">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/yourusername/yourrepo/main/Carlo Logo - JPEGS-02.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/yourusername/yourrepo/main/Carlo Logo - JPEGS-02.jpg">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/yourusername/yourrepo/main/Carlo Logo - JPEGS-02.jpg">
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5N4LRQXV');</script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff6b35 0%, #ff8e35 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff6b35 0%, #f58220 100%);
+            --success-gradient: linear-gradient(135deg, #ff6b35 0%, #ff8e35 100%);
+            --danger-gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --shadow-soft: 0 8px 32px rgba(255, 107, 53, 0.15);
+            --shadow-elevated: 0 20px 60px rgba(255, 107, 53, 0.2);
+            --accent-orange: #ff6b35;
+            --accent-light-orange: #ff8e35;
+            --white: #ffffff;
+            --off-white: #fafafa;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,70 +65,178 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--white) 0%, var(--off-white) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 142, 53, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
             text-align: center;
-            max-width: 600px;
+            max-width: 900px;
+            width: 100%;
             padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent-orange);
+            box-shadow: var(--shadow-elevated);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .title {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--accent-orange);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .auth-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .auth-container {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group input {
             width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.9);
+            padding: 18px 25px;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.95);
             font-size: 16px;
             color: #333;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+            transform: translateY(-2px);
         }
 
         .btn {
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            background: var(--primary-gradient);
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
+            padding: 18px 40px;
+            border-radius: 50px;
             color: white;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-elevated);
         }
 
         .btn:disabled {
@@ -84,25 +245,101 @@
             transform: none;
         }
 
+        .toggle-link {
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-link:hover {
+            color: var(--accent-light-orange);
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+
         .game-container {
             display: none;
         }
 
+        .user-welcome {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid var(--accent-orange);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #333;
+        }
+
+        .user-info {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .user-stats {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid var(--accent-orange);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            color: #333;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
         .wheel-container {
             position: relative;
-            margin: 30px auto;
-            width: 300px;
-            height: 300px;
+            margin: 40px auto;
+            width: 350px;
+            height: 350px;
         }
 
         .wheel {
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            border: 8px solid #fff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            border: 10px solid var(--accent-orange);
+            box-shadow: 
+                var(--shadow-elevated),
+                inset 0 0 0 5px rgba(255, 107, 53, 0.3);
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
         }
 
@@ -114,92 +351,109 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
+            font-weight: 700;
+            font-size: 14px;
             text-align: center;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
         }
 
         .section-1 {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b35, #ff8e35);
             transform: rotate(0deg);
         }
 
         .section-2 {
-            background: #4ecdc4;
+            background: linear-gradient(135deg, #ffffff, #f8f8f8);
+            color: #333 !important;
             transform: rotate(90deg);
         }
 
         .section-3 {
-            background: #45b7d1;
+            background: linear-gradient(135deg, #ff6b35, #f58220);
             transform: rotate(180deg);
         }
 
         .section-4 {
-            background: #96ceb4;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            color: #333 !important;
             transform: rotate(270deg);
         }
 
         .wheel-pointer {
             position: absolute;
-            top: -10px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid #fff;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid var(--accent-orange);
             z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 5;
+            box-shadow: var(--shadow-soft);
+            color: white;
+        }
+
+        .spin-btn {
+            margin: 30px 0;
+            background: var(--success-gradient);
+            font-size: 1.4rem;
+            padding: 20px 50px;
+            font-weight: 700;
         }
 
         .result {
             margin-top: 30px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            min-height: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .user-info {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        .user-stats {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .spin-btn {
-            margin-top: 20px;
-            background: linear-gradient(45deg, #11998e, #38ef7d);
-        }
-
-        .logout-btn {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            margin-left: 10px;
-            padding: 10px 20px;
-            font-size: 14px;
+            border: 2px solid var(--accent-orange);
+            transition: all 0.3s ease;
+            color: #333;
         }
 
         .next-spin-info {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            font-size: 14px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            font-size: 1rem;
+            border: 2px solid var(--accent-orange);
+            color: #333;
+        }
+
+        .logout-btn {
+            background: var(--danger-gradient);
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .loading {
@@ -217,25 +471,128 @@
         }
 
         .error {
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
+            color: #fff;
+            background: rgba(255, 107, 107, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
         }
 
         .hidden {
             display: none !important;
         }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .auth-container {
+                padding: 30px 25px;
+            }
+            
+            .wheel-container {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .wheel {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .wheel-center {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .user-welcome {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wheel-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .wheel {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .wheel-section {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5N4LRQXV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <div class="floating-particles"></div>
+    
     <div class="container">
-        <h1 class="title">🎰 Carlo Drive-In Lucky Wheel Spin</h1>
+        <div class="header">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/Carlo Logo - JPEGS-02.jpg" alt="Carlo Drive-In Logo" onerror="this.style.display='none'; this.parentNode.innerHTML='🍔';">
+            </div>
+            <h1 class="title">Carlo Drive-In</h1>
+            <p class="subtitle">Lucky Wheel Spin - Win Amazing Rewards!</p>
+        </div>
         
         <!-- Authentication Form -->
         <div id="authContainer" class="auth-container">
-            <h2 id="authTitle">Welcome! Please Sign Up</h2>
+            <h2 id="authTitle" class="auth-title">Welcome! Please Sign Up</h2>
             <form id="authForm">
                 <div class="form-group" id="nameGroup">
                     <input type="text" id="name" placeholder="Enter your full name" required>
@@ -254,22 +611,32 @@
                     <span id="authLoader" class="loading" style="display: none;"></span>
                 </button>
             </form>
-            <p style="margin-top: 15px; font-size: 14px;">
-                Already have an account? <a href="#" id="toggleAuth" style="color: #ffd93d;">Login here</a>
+            <p style="margin-top: 20px; font-size: 16px;">
+                Already have an account? <a href="#" id="toggleAuth" class="toggle-link">Login here</a>
             </p>
             <div id="authError" class="error" style="display: none;"></div>
         </div>
 
         <!-- Game Container -->
         <div id="gameContainer" class="game-container">
-            <div class="user-info">
-                Welcome back, <span id="welcomeUser"></span>!
+            <div class="user-welcome">
+                <div class="user-info">
+                    Welcome back, <span id="welcomeUser"></span>! 🎉
+                </div>
                 <button class="btn logout-btn" onclick="logout()">Logout</button>
             </div>
             
             <div class="user-stats">
-                <div>🎯 Total Visits: <span id="totalVisits">0</span></div>
-                <div>🏆 Total Rewards: <span id="totalRewards">0</span></div>
+                <div class="stat-item">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-number" id="totalVisits">0</div>
+                    <div class="stat-label">Total Visits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-number" id="totalRewards">0</div>
+                    <div class="stat-label">Total Rewards</div>
+                </div>
             </div>
             
             <div class="wheel-container">
@@ -280,9 +647,12 @@
                     <div class="wheel-section section-3">10% OFF<br>BILL</div>
                     <div class="wheel-section section-4">BETTER<br>LUCK<br>NEXT TIME</div>
                 </div>
+                <div class="wheel-center">🎲</div>
             </div>
             
-            <button class="btn spin-btn" id="spinBtn" onclick="spinWheel()">🎲 SPIN THE WHEEL!</button>
+            <button class="btn spin-btn" id="spinBtn" onclick="spinWheel()">
+                🎲 SPIN THE WHEEL!
+            </button>
             
             <div class="result" id="result">
                 Click the wheel to discover your reward!
@@ -293,320 +663,215 @@
     </div>
 
     <script>
-       // Configuration - Your Google Apps Script Web App URL
-const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyOjYA6QsW_HO_bpmeLpTEa7RrGL3wGPYe6Lpj4Q1KaOyCVyukQP-k-XETtCBDVZjyzGg/exec';
+        // Configuration - Your Google Apps Script Web App URL
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyOjYA6QsW_HO_bpmeLpTEa7RrGL3wGPYe6Lpj4Q1KaOyCVyukQP-k-XETtCBDVZjyzGg/exec';
 
-// Global variables
-let currentUser = null;
-let isLoginMode = false;
-let lastSpinTime = null;
+        // Global variables
+        let currentUser = null;
+        let isLoginMode = false;
+        let lastSpinTime = null;
 
-// Initialize the app
-function init() {
-    const savedUser = getCookie('currentUser');
-    if (savedUser) {
-        try {
-            currentUser = JSON.parse(savedUser);
-            showGameContainer();
-        } catch (e) {
-            showAuthContainer();
-        }
-    } else {
-        showAuthContainer();
-    }
-}
-
-// Cookie functions
-function setCookie(name, value, days = 365) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-}
-
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-// Show authentication container
-function showAuthContainer() {
-    document.getElementById('authContainer').style.display = 'block';
-    document.getElementById('gameContainer').style.display = 'none';
-}
-
-// Show game container
-function showGameContainer() {
-    document.getElementById('authContainer').style.display = 'none';
-    document.getElementById('gameContainer').style.display = 'block';
-    document.getElementById('welcomeUser').textContent = currentUser.name;
-    document.getElementById('totalVisits').textContent = currentUser.visits;
-    document.getElementById('totalRewards').textContent = currentUser.rewards.length;
-    updateNextSpinInfo();
-}
-
-// Toggle between login and signup
-document.getElementById('toggleAuth').addEventListener('click', function(e) {
-    e.preventDefault();
-    isLoginMode = !isLoginMode;
-    
-    const nameGroup = document.getElementById('nameGroup');
-    const phoneGroup = document.getElementById('phoneGroup');
-    const nameInput = document.getElementById('name');
-    const phoneInput = document.getElementById('phone');
-    
-    if (isLoginMode) {
-        document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
-        document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
-        document.getElementById('toggleAuth').textContent = 'Sign up here';
-        
-        // Hide fields and remove required attribute
-        nameGroup.classList.add('hidden');
-        phoneGroup.classList.add('hidden');
-        nameInput.removeAttribute('required');
-        phoneInput.removeAttribute('required');
-    } else {
-        document.getElementById('authTitle').textContent = 'Welcome! Please Sign Up';
-        document.getElementById('authBtnText').textContent = 'Sign Up & Start Spinning!';
-        document.getElementById('toggleAuth').textContent = 'Login here';
-        
-        // Show fields and add required attribute
-        nameGroup.classList.remove('hidden');
-        phoneGroup.classList.remove('hidden');
-        nameInput.setAttribute('required', 'required');
-        phoneInput.setAttribute('required', 'required');
-    }
-    
-    // Clear any error messages
-    document.getElementById('authError').style.display = 'none';
-});
-
-// Handle authentication
-document.getElementById('authForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const authBtn = document.getElementById('authBtn');
-    const authBtnText = document.getElementById('authBtnText');
-    const authLoader = document.getElementById('authLoader');
-    const authError = document.getElementById('authError');
-    
-    // Show loading state
-    authBtn.disabled = true;
-    authBtnText.style.display = 'none';
-    authLoader.style.display = 'inline-block';
-    authError.style.display = 'none';
-
-    try {
-        const formData = {
-            action: isLoginMode ? 'login' : 'register',
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
-        };
-
-        // Only add name and phone for registration
-        if (!isLoginMode) {
-            formData.name = document.getElementById('name').value;
-            formData.phone = document.getElementById('phone').value;
+        // Initialize floating particles
+        function createFloatingParticles() {
+            const particlesContainer = document.querySelector('.floating-particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        const response = await makeJSONPRequest(formData);
-
-        if (response.result === 'success') {
-            currentUser = response.data.user;
-            setCookie('currentUser', JSON.stringify(currentUser));
-            showGameContainer();
-        } else {
-            throw new Error(response.message);
-        }
-    } catch (error) {
-        authError.textContent = error.message || 'An error occurred. Please try again.';
-        authError.style.display = 'block';
-    } finally {
-        // Reset loading state
-        authBtn.disabled = false;
-        authBtnText.style.display = 'inline-block';
-        authLoader.style.display = 'none';
-    }
-});
-
-// JSONP request function to avoid CORS
-function makeJSONPRequest(data) {
-    return new Promise((resolve, reject) => {
-        const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
-        
-        window[callbackName] = function(response) {
-            try {
-                if (typeof response === 'string') {
-                    response = JSON.parse(response);
+        // Initialize the app
+        function init() {
+            createFloatingParticles();
+            
+            const savedUser = getCookie('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    showGameContainer();
+                } catch (e) {
+                    showAuthContainer();
                 }
-                resolve(response);
-            } catch (err) {
-                reject(new Error('Invalid server response'));
-            } finally {
-                document.head.removeChild(script);
-                delete window[callbackName];
+            } else {
+                showAuthContainer();
             }
-        };
-        
-        const script = document.createElement('script');
-        const params = new URLSearchParams();
-        for (const key in data) {
-            params.append(key, data[key]);
         }
-        params.append('callback', callbackName);
-        
-        script.src = WEBAPP_URL + '?' + params.toString();
-        script.onerror = function() {
-            document.head.removeChild(script);
-            delete window[callbackName];
-            reject(new Error('Request failed'));
-        };
-        
-        document.head.appendChild(script);
-    });
-}
 
-// Determine available rewards based on time logic
-function getAvailableRewards() {
-    const now = new Date().getTime();
-    const rewards = currentUser.rewards || [];
-    
-    // First time user gets a or b
-    if (rewards.length === 0) {
-        return ['a', 'b']; // Free beverage or free snack
-    }
-    
-    // Get last spin time
-    const lastReward = rewards[rewards.length - 1];
-    const lastSpinTime = new Date(lastReward.date).getTime();
-    const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+        // Cookie functions
+        function setCookie(name, value, days = 365) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
 
-    // Time-based logic for rewards
-    if (daysSinceLastSpin < 2) {
-        return ['d']; // Only "Better luck next time"
-    } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
-        return ['a', 'b', 'd']; // Free beverage, snack, or "better luck"
-    } else {
-        return ['a', 'b', 'c', 'd']; // All rewards available
-    }
-}
-
-// Spin wheel function
-async function spinWheel() {
-    const spinBtn = document.getElementById('spinBtn');
-    const wheel = document.getElementById('wheel');
-    const result = document.getElementById('result');
-    
-    spinBtn.disabled = true;
-    spinBtn.textContent = 'Spinning...';
-    
-    const availableRewards = getAvailableRewards();
-    const selectedReward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
-    
-    // Calculate rotation based on selected reward
-    let targetRotation;
-    switch(selectedReward) {
-        case 'a': targetRotation = 315; break; // Free beverage
-        case 'b': targetRotation = 45; break;  // Free snack
-        case 'c': targetRotation = 135; break; // 10% off
-        case 'd': targetRotation = 225; break; // Better luck
-        default: targetRotation = 0;
-    }
-    
-    // Add multiple full rotations for effect
-    const fullRotations = 1440; // 4 full rotations
-    const finalRotation = fullRotations + targetRotation;
-    
-    wheel.style.transform = `rotate(${finalRotation}deg)`;
-    
-    setTimeout(async () => {
-        try {
-            // Send reward to backend
-            const rewardNames = {
-                'a': 'Free Beverage of the Day',
-                'b': 'Free Snack of the Day',
-                'c': '10% Off on Bill',
-                'd': 'Better Luck Next Time'
-            };
-
-            const response = await makeJSONPRequest({
-                action: 'addReward',
-                email: currentUser.email,
-                reward: rewardNames[selectedReward]
-            });
-
-            // No .json() needed!
-            if (response.result === 'success') {
-                // Update local user data
-                currentUser.rewards = response.data.rewards;
-                setCookie('currentUser', JSON.stringify(currentUser));
-                
-                // Update UI
-                document.getElementById('totalRewards').textContent = currentUser.rewards.length;
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
             }
+            return null;
+        }
 
-            // Show result
-            const rewards = {
-                'a': '🥤 Congratulations! You won a FREE BEVERAGE OF THE DAY!',
-                'b': '🍿 Congratulations! You won a FREE SNACK OF THE DAY!',
-                'c': '💰 Amazing! You got 10% OFF ON YOUR BILL!',
-                'd': '😔 Better luck next time! better luck next time!'
-            };
-            
-            result.innerHTML = rewards[selectedReward];
-            result.style.background = selectedReward === 'd' ? 
-                'rgba(255, 107, 107, 0.2)' : 'rgba(76, 175, 80, 0.2)';
-            
+        // Show authentication container
+        function showAuthContainer() {
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('gameContainer').style.display = 'none';
+        }
+
+        // Show game container
+        function showGameContainer() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'block';
+            document.getElementById('welcomeUser').textContent = currentUser.name;
+            document.getElementById('totalVisits').textContent = currentUser.visits;
+            document.getElementById('totalRewards').textContent = currentUser.rewards.length;
             updateNextSpinInfo();
-        } catch (error) {
-            result.innerHTML = '❌ Error saving reward. Please try again.';
-            result.style.background = 'rgba(255, 107, 107, 0.2)';
         }
-        
-        spinBtn.disabled = false;
-        spinBtn.textContent = '🎲 SPIN AGAIN!';
-    }, 4000);
-}
 
-// Update next spin information
-function updateNextSpinInfo() {
-    const nextSpinInfo = document.getElementById('nextSpinInfo');
-    const rewards = currentUser.rewards || [];
-    
-    if (rewards.length === 0) {
-        nextSpinInfo.innerHTML = '🎉 First spin available! You\'re guaranteed a great reward!';
-        return;
-    }
-    
-    const now = new Date().getTime();
-    const lastReward = rewards[rewards.length - 1];
-    const lastSpinTime = new Date(lastReward.date).getTime();
-    const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
-    
-    if (daysSinceLastSpin < 2) {
-        const hoursLeft = Math.ceil((2 * 24) - (daysSinceLastSpin * 24));
-        nextSpinInfo.innerHTML = `⏰ Come back in ${hoursLeft} hours for better rewards!`;
-    } else if (daysSinceLastSpin >= 2 && daysSinceLastSpin < 7) {
-        nextSpinInfo.innerHTML = '🎁 Great timing! You can win free beverages or snacks!';
-    } else {
-        nextSpinInfo.innerHTML = '💎 Perfect! You\'re eligible for the premium 10% discount!';
-    }
-}
+        // Toggle between login and signup
+        document.getElementById('toggleAuth').addEventListener('click', function(e) {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            
+            const nameGroup = document.getElementById('nameGroup');
+            const phoneGroup = document.getElementById('phoneGroup');
+            const nameInput = document.getElementById('name');
+            const phoneInput = document.getElementById('phone');
+            
+            if (isLoginMode) {
+                document.getElementById('authTitle').textContent = 'Welcome Back! Please Login';
+                document.getElementById('authBtnText').textContent = 'Login & Start Spinning!';
+                document.getElementById('toggleAuth').textContent = 'Sign up here';
+                
+                // Hide fields and remove required attribute
+                nameGroup.classList.add('hidden');
+                phoneGroup.classList.add('hidden');
+                nameInput.removeAttribute('required');
+                phoneInput.removeAttribute('required');
+            } else {
+                document.getElementById('authTitle').textContent = 'Welcome! Please Sign Up';
+                document.getElementById('authBtnText').textContent = 'Sign Up & Start Spinning!';
+                document.getElementById('toggleAuth').textContent = 'Login here';
+                
+                // Show fields and add required attribute
+                nameGroup.classList.remove('hidden');
+                phoneGroup.classList.remove('hidden');
+                nameInput.setAttribute('required', 'required');
+                phoneInput.setAttribute('required', 'required');
+            }
+            
+            // Clear any error messages
+            document.getElementById('authError').style.display = 'none';
+        });
 
-// Logout function
-function logout() {
-    setCookie('currentUser', '', -1);
-    currentUser = null;
-    showAuthContainer();
-}
+        // Handle authentication
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const authBtn = document.getElementById('authBtn');
+            const authBtnText = document.getElementById('authBtnText');
+            const authLoader = document.getElementById('authLoader');
+            const authError = document.getElementById('authError');
+            
+            // Show loading state
+            authBtn.disabled = true;
+            authBtnText.style.display = 'none';
+            authLoader.style.display = 'inline-block';
+            authError.style.display = 'none';
 
-// Initialize app on load
-window.onload = init;
- </script>
-</body>
-</html>
+            try {
+                const formData = {
+                    action: isLoginMode ? 'login' : 'register',
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value
+                };
+
+                // Only add name and phone for registration
+                if (!isLoginMode) {
+                    formData.name = document.getElementById('name').value;
+                    formData.phone = document.getElementById('phone').value;
+                }
+
+                const response = await makeJSONPRequest(formData);
+
+                if (response.result === 'success') {
+                    currentUser = response.data.user;
+                    setCookie('currentUser', JSON.stringify(currentUser));
+                    showGameContainer();
+                } else {
+                    throw new Error(response.message);
+                }
+            } catch (error) {
+                authError.textContent = error.message || 'An error occurred. Please try again.';
+                authError.style.display = 'block';
+            } finally {
+                // Reset loading state
+                authBtn.disabled = false;
+                authBtnText.style.display = 'inline-block';
+                authLoader.style.display = 'none';
+            }
+        });
+
+        // JSONP request function to avoid CORS
+        function makeJSONPRequest(data) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Math.random().toString(36).substr(2, 9);
+                
+                window[callbackName] = function(response) {
+                    try {
+                        if (typeof response === 'string') {
+                            response = JSON.parse(response);
+                        }
+                        resolve(response);
+                    } catch (err) {
+                        reject(new Error('Invalid server response'));
+                    } finally {
+                        document.head.removeChild(script);
+                        delete window[callbackName];
+                    }
+                };
+                
+                const script = document.createElement('script');
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+                params.append('callback', callbackName);
+                
+                script.src = WEBAPP_URL + '?' + params.toString();
+                script.onerror = function() {
+                    document.head.removeChild(script);
+                    delete window[callbackName];
+                    reject(new Error('Request failed'));
+                };
+                
+                document.head.appendChild(script);
+            });
+        }
+
+        // Determine available rewards based on time logic
+        function getAvailableRewards() {
+            const now = new Date().getTime();
+            const rewards = currentUser.rewards || [];
+            
+            // First time user gets a or b
+            if (rewards.length === 0) {
+                return ['a', 'b']; // Free beverage or free snack
+            }
+            
+            // Get last spin time
+            const lastReward = rewards[rewards.length - 1];
+            const lastSpinTime = new Date(lastReward.date).getTime();
+            const daysSinceLastSpin = (now - lastSpinTime) / (1000 * 60 * 60 * 24);
+
+            // Time-based logic for rewards
+            if (daysSinceLastSpin < 2) {
+                return ['d']; // Only "Better luck
